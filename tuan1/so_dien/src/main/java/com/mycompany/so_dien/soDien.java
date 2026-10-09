@@ -2,7 +2,7 @@ package com.mycompany.so_dien;
 
 import java.util.Scanner;
 
-public class soDien {
+public class SoDien {
 
     /**
      * Calculate money of electronicity used
