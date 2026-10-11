@@ -15,10 +15,22 @@ public class CalElectricity {
      */
     public static int calculate_money(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
         int amount, electricity_number;
-        System.out.println("Nhap so dien can tinh: ");
-        electricity_number = sc.nextInt();
 
-        
+        do {
+            try {
+                System.out.println("Nhap so dien can tinh: ");
+                electricity_number = sc.nextInt();
+                if (electricity_number <= 0) {
+                    System.out.println("So dien phai lon hon 0");
+                }
+            } catch (Exception e) {
+                System.out.println("So dien khong hop le");
+                sc.nextLine();
+                electricity_number = -1;
+
+            }
+        } while (electricity_number <= 0);
+
         int electric_price_1 = 1800;
         int electric_price_2 = 2000;
         int electric_price_3 = 2500;
@@ -47,6 +59,10 @@ public class CalElectricity {
      * @param amount1 money of electricity bill
      */
     public static void display(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
+        if (amount1.isEmpty()) {
+            System.out.println("Danh sach chua co hoa don!");
+            return;
+        }
         System.out.println("\n=============Danh Sach==============");
         System.out.println(" STT |   so dien(kWh)  |  thanh tien(VND)   ");
         for (int i = 0; i < amount1.size(); i++) {
@@ -61,20 +77,31 @@ public class CalElectricity {
      * @param amount1 money of electricity bill
      */
     public static void delete(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
-        System.out.println("Nhap vi tri muon xoa");
-        int i = sc.nextInt();
-        if (i > amount1.size()) {
-            System.out.println("STT khong hop le");
-        } else {
-            amount1.remove(i - 1);
-            electricity_number1.remove(i - 1);
-            System.out.println("Xoa thanh cong!");
+        if (amount1.isEmpty()) {
+            System.out.println("Khong co hoa don de xoa!");
+            return;
         }
+        int i = 0;
+        do {
+            System.out.println("Nhap vi tri muon xoa");
+            try {
+                i = sc.nextInt();
+                if (i < 1 || i > amount1.size()) {
+                    System.out.println("STT khong hop le!");
+                }
+            } catch (Exception e) {
+                System.out.println("Du lieu khong hop le!");
+                sc.nextLine();
+                i = -1;
+            }
+        } while (i < 1 || i > amount1.size());
 
+        amount1.remove(i - 1);
+        electricity_number1.remove(i - 1);
+        System.out.println("Xoa thanh cong!");
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         ArrayList<Integer> amount1 = new ArrayList<>();
         ArrayList<Integer> electricity_number1 = new ArrayList<>();
 
@@ -89,19 +116,27 @@ public class CalElectricity {
             System.out.println("===============================\n");
             System.out.println("Nhap lua chon cua ban: ");
 
-            chon = sc.nextInt();
+            try {
+                chon = sc.nextInt();
+
+            } catch (Exception e) {
+                System.out.println("Du lieu khong hop le!");
+                sc.nextLine();
+                chon = -1;
+                continue;
+            }
 
             switch (chon) {
                 case 1:
-                    calculate_money(amount1, electricity_number1);
+                    calculate_money(electricity_number1, amount1);
                     System.out.println();
                     break;
                 case 2:
-                    display(amount1, electricity_number1);
+                    display(electricity_number1, amount1);
                     System.out.println();
                     break;
                 case 3:
-                    delete(amount1, electricity_number1);
+                    delete(electricity_number1, amount1);
                     System.out.println();
                     break;
                 case 0:
