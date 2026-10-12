@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class CalElectricity {
 
+
     static Scanner sc = new Scanner(System.in);
 
     /**
@@ -115,6 +116,7 @@ public class CalElectricity {
             }
 
         } while (chon != 0);
+
 
     }
 }
