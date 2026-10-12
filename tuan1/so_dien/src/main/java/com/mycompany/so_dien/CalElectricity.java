@@ -60,12 +60,12 @@ public class CalElectricity {
      */
     public static void delete(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
         System.out.println("Enter position to delete:");
-        int i = sc.nextInt();
-        if (i > amount1.size()) {
+        int index = sc.nextInt();
+        if (index > amount1.size()) {
             System.out.println("Invalid number");
         } else {
-            amount1.remove(i - 1);
-            electricity_number1.remove(i - 1);
+            amount1.remove(index - 1);
+            electricity_number1.remove(index - 1);
             System.out.println("Deleted successfully!");
         }
 
