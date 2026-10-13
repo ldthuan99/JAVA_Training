@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class CalElectricity {
 
+
     static Scanner sc = new Scanner(System.in);
 
     /**
@@ -18,19 +19,18 @@ public class CalElectricity {
 
         do {
             try {
-                System.out.println("Nhap so dien can tinh: ");
+                System.out.println("Input electricity number: ");
                 electricity_number = sc.nextInt();
                 if (electricity_number <= 0) {
-                    System.out.println("So dien phai lon hon 0");
+                    System.out.println("Electricity consumption must be greater than 0");
                 }
             } catch (Exception e) {
-                System.out.println("So dien khong hop le");
+                System.out.println("Invalid electricity consumption!");
                 sc.nextLine();
                 electricity_number = -1;
-
             }
         } while (electricity_number <= 0);
-
+        
         int electric_price_1 = 1800;
         int electric_price_2 = 2000;
         int electric_price_3 = 2500;
@@ -43,10 +43,9 @@ public class CalElectricity {
         } else if (electricity_number <= 200) {
             amount = 50 * electric_price_1 + 50 * electric_price_2 + (electricity_number - 100) * electric_price_3;
         } else {
-
             amount = 50 * electric_price_1 + 50 * electric_price_2 + 100 * electric_price_3 + (electricity_number - 200) * electric_price_4;
         }
-        System.out.println("So tien can tra la: " + amount + " VND");
+        System.out.println("Amount to pay: " + amount + " VND");
         amount1.add(amount);
         electricity_number1.add(electricity_number);
         return amount;
@@ -59,14 +58,16 @@ public class CalElectricity {
      * @param amount1 money of electricity bill
      */
     public static void display(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
+
         if (amount1.isEmpty()) {
-            System.out.println("Danh sach chua co hoa don!");
+            System.out.println("No bills available!");
             return;
         }
-        System.out.println("\n=============Danh Sach==============");
-        System.out.println(" STT |   so dien(kWh)  |  thanh tien(VND)   ");
+        System.out.println("\n=============List==============");
+        System.out.println(" Number |   Electricity used (kWh)  |  Total amount (VND)   ");
+
         for (int i = 0; i < amount1.size(); i++) {
-            System.out.printf("  %d  |       %d        |       %d\n", i + 1, electricity_number1.get(i), amount1.get(i));
+            System.out.printf("    %d   |             %d            |       %d\n", i + 1, electricity_number1.get(i), amount1.get(i));
         }
     }
 
@@ -77,28 +78,29 @@ public class CalElectricity {
      * @param amount1 money of electricity bill
      */
     public static void delete(ArrayList<Integer> electricity_number1, ArrayList<Integer> amount1) {
+
         if (amount1.isEmpty()) {
-            System.out.println("Khong co hoa don de xoa!");
+            System.out.println("No bills to delete!");
             return;
         }
-        int i = 0;
+        int index = 0;
         do {
-            System.out.println("Nhap vi tri muon xoa");
+            System.out.println("Enter position to delete:");
             try {
-                i = sc.nextInt();
-                if (i < 1 || i > amount1.size()) {
-                    System.out.println("STT khong hop le!");
+                index = sc.nextInt();
+                if (index < 1 || index > amount1.size()) {
+                    System.out.println("Invalid number!");
                 }
             } catch (Exception e) {
-                System.out.println("Du lieu khong hop le!");
+                System.out.println("Invalid data!");
                 sc.nextLine();
-                i = -1;
+                index = -1;
             }
-        } while (i < 1 || i > amount1.size());
+        } while (index < 1 || index > amount1.size());
 
-        amount1.remove(i - 1);
-        electricity_number1.remove(i - 1);
-        System.out.println("Xoa thanh cong!");
+        amount1.remove(index - 1);
+        electricity_number1.remove(index - 1);
+        System.out.println("Deleted successfully!!");
     }
 
     public static void main(String[] args) {
@@ -107,20 +109,18 @@ public class CalElectricity {
 
         int chon;
         do {
-
-            System.out.println("\n=============MENU==============");
-            System.out.println("|   1. Tinh tien dien:         |");
-            System.out.println("|   2. Xem danh sach:          |");
-            System.out.println("|   3. Xoa:                    |");
-            System.out.println("|   0. Thoat chuong trinh!     |");
-            System.out.println("===============================\n");
-            System.out.println("Nhap lua chon cua ban: ");
-
+            System.out.println("\n==============MENU===============");
+            System.out.println("|   1. Calculate electricity bill |");
+            System.out.println("|   2. View list                  |");
+            System.out.println("|   3. Delete:                    |");
+            System.out.println("|   0. Exit program!              |");
+            System.out.println("==================================\n");
+            System.out.println("Enter your choice: ");
+            
             try {
                 chon = sc.nextInt();
-
             } catch (Exception e) {
-                System.out.println("Du lieu khong hop le!");
+                System.out.println("Invalid data!");
                 sc.nextLine();
                 chon = -1;
                 continue;
@@ -140,16 +140,13 @@ public class CalElectricity {
                     System.out.println();
                     break;
                 case 0:
-                    System.out.println("Thoat chuong trinh thanh cong! ");
+                    System.out.println("Program exited successfully! ");
                     System.out.println();
                     break;
                 default:
-                    System.out.println("Lua chon khong hop le!\n");
+                    System.out.println("Invalid choice!\n");
                     System.out.println();
-
             }
-
         } while (chon != 0);
-
     }
 }
